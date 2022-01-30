@@ -1,0 +1,14 @@
+Fix the provided code:
+
+Original code ~
+
+def multiply(a, b):
+    a * b
+
+Fixed code solution ~
+
+def multiply(a, b):
+  return a * b
+
+Explanation ~
+The original code was missing the "return" decleration at the end of the function definition.
