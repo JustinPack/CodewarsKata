@@ -12,22 +12,21 @@ This is a very simply formulated task. Let's call an integer number N 'green' if
 
 Your task is to write a function green that returns the nth green number, starting with 1 - green (1) == 1
 
- ##########################################################################
+##########################################################################
 
 I approached this from a couple different ways.
 
 My initial approach of brute-forcing the checking of N in the sliced output of N^ 
 was obviously not an efficient approach and timed out the code-wars terminal at 12000ms
 
-My second attempt was to try multithreading the finding of the green numbers in a task split in half. While this cut my execution time considerably, my function no longer timed out, and
-I still got an error that prevented my completion due to the way the test does each check.
-The cumulative execution time of checking a large set of results for final verification 
-exceeded the 12000ms execution time limit.
+My second attempt was to try multithreading the finding of the green numbers in a task split in half. While this cut my execution time 
+considerably, my function no longer timed out, and I still got an error that prevented my completion due to the way the test does each check.
+The cumulative execution time of checking a large set of results for final verification exceeded the 12000ms execution time limit.
 
 My third attempt was to use caching to store the function result and shave execution time off the final checks.
 See below
 
- ##########################################################################
+##########################################################################
 import functools
 
 
@@ -61,13 +60,19 @@ def green(n):
         return sorted(list(greens))[n]
     else:
         return sorted(list(gen_greens(n)))[n]
- ##########################################################################
+        
+##########################################################################
 
 This ran into an issue with the limit of the length of strings that can be converted into ints.
 This limit is apparently 4300 characters which is insufficient for returning the larger green numbers.
 
-After doing some research on number series and automorphic numbers, I came upon a relevant A003226 OEIS. The Online Encyclopedia of Integer Sequences included information on the generation of the sequence. I incorporated the OEIS information in the construction of the following code which did complete the challenge the required 109 times with an execution time of 6700ms.
-  ##########################################################################   
+After doing some research on number series and automorphic numbers, I came upon a relevant A003226 OEIS. 
+The Online Encyclopedia of Integer Sequences included information on the generation of the sequence. 
+I incorporated the OEIS information in the construction of the following code which did complete 
+the challenge the required 109 times with an execution time of 6700ms.
+
+##########################################################################
+
 from itertools import count, islice
 
 
@@ -100,4 +105,5 @@ green_list = list(islice(green_generator(), 5001))
 
 def green(n):
     return green_list[n]
-  ##########################################################################   
+    
+##########################################################################
